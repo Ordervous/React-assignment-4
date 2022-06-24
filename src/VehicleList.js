@@ -1,33 +1,32 @@
-import ListGroup from 'react-bootstrap/ListGroup'
 import React from 'react';
-import Vehicles from './Vehicle';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 
 class VehicleList extends React.Component {
 
-    vehiclesMap () {
-        return this.props.vehicles.map((vehicle) => <Vehicles vehicle={vehicle}
-        key={vehicle.vin}
-        onVehicleSelected={this.props.onVehicleSelected} />
+    singleVehicle(vehicle) {
+        return (
+            <div>
+                <ListGroup className="w-150 align-self-start">
+                    <ListGroup.Item action active={this.props.selected === vehicle}
+                        onClick={this.props.handleVehicleSelected.bind(this, vehicle)}
+                            >
+                            { vehicle.manufacturer } {vehicle.model}
+                          
+                    </ListGroup.Item>
+                </ListGroup>
+            </div>
         )
     }
 
     render() {
         return (
-            <ListGroup className="w-50 align-self-start">
-                <ListGroup.Item action active={ } onClick={ }>
-                    {vehicle.manufacturer} {vehicle.model}
-                </ListGroup.Item>
-                ...
-                <ListGroup.Item action active={ } onClick={ }>
-                    {vehicle.manufacturer} {vehicle.model}
-                </ListGroup.Item>
+            <ListGroup>
+                {this.props.vehicles.map((vehicle) => this.singleVehicle(vehicle))}
             </ListGroup>
-
         )
     }
-
-
 }
 
 export default VehicleList

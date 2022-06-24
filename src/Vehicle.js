@@ -1,38 +1,50 @@
-import { faker } from '@faker-js/faker';
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
 
 class Vehicles extends React.Component {
-    constructor(props) {
-        super(props)
-        this.getVehicles = this.getVehicles.bind(this)
-    }
-
-    getVehicles() {
-        let vehiclesarray = []
-
-        for (let i = 0; i < 10; i++) {
-            vehiclesarray.push({
-                manufacturer: faker.vehicle.manufacturer(),
-                model: faker.vehicle.model(),
-                type: faker.vehicle.type(),
-                fuel: faker.vehicle.fuel(),
-                vin: faker.vehicle.vin(),
-                color: faker.vehicle.color()
-            })
-            return {
-                vehiclesarray
-            }
-        }
-    }
 
     render() {
-        return {
-            vehiclesarray
+
+        if (this.props.oneVehicle == null) {
+            return (
+                <div style={{ display: 'block', width: 350, padding: 30 }}>
+
+                    <Card className="w-0 align-self-start">
+                        <Card.Body>
+                            <Card.Title>No Vehicle Selected</Card.Title>
+                            <Card.Text>
+                                Click a vehicle on the left to see more details
+                                {this.props.ivan}
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </div>
+            )
+
+        } else {
+            let { manufacturer, model, type, fuel, vin, color } = this.props.oneVehicle
+            return (
+                <Card className="w-0 align-self-start">
+                    <Card.Img variant="top" src={`https://via.placeholder.com/180x150?text=${manufacturer} ${model}`} />
+                    <Card.Body>
+                        <Card.Title>{manufacturer} {model}</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">{vin}</Card.Subtitle>
+                        <Card.Text>
+                            This is a wonderful {fuel}-powered {color} {type}.
+                        </Card.Text>
+                        <Button>Buy Now!</Button>
+                    </Card.Body>
+                </Card>
+            )
         }
+
     }
 
 }
 
-
-
 export default Vehicles
+
+//* Could not get the trenary to work, tired heaps of things. 
+
